@@ -1,0 +1,12 @@
+vunit fifo_vu (fifo(behaviour)) {
+    default clock is rising_edge(i_clk);
+
+    empty_condition : assert always ((count = 0) -> (o_empty = '1'));
+    full_condition :  assert always ((count = g_HEIGHT - 1) -> (o_full = '1'));
+    partially_filled : assert always ((count /= 0) and (count /= g_HEIGHT - 1)) -> ((o_empty = '0') and (o_full = '0'));
+
+    no_write : assert always ((i_wr_en = '1') and (o_full = '1')) -> next(wr_index) = wr_index;
+    no_read: assert always ((i_rd_en = '1') and (o_empty = '1')) -> next(rd_index) = rd_index;
+
+
+}

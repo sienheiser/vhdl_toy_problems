@@ -1,0 +1,15 @@
+[options]
+mode prove
+depth 40
+
+[engines]
+smtbmc yices
+
+[script]
+plugin -i ghdl
+ghdl --std=08 fifo.vhdl fifo.psl -e fifo
+prep -top fifo
+
+[files]
+fifo.vhdl
+fifo.psl
